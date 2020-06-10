@@ -14,7 +14,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   //use 'controller' variable to access controller
   TextEditingController textEditingControllerName = TextEditingController();
   TextEditingController textEditingControllerEmail = TextEditingController();
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           hintText: 'Informe o nome'),
             onChanged: (value){
               controller.getName(value);
-              textEditingControllerName.clear();
+             // textEditingControllerName.clear();
             },
           ),
           Container(
@@ -44,7 +44,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           hintText: 'Informe o email'),
             onChanged: (value){
               controller.getEmail(value);
-              textEditingControllerEmail.clear();
+              //textEditingControllerEmail.clear();
             },
           ),
           Container(
@@ -53,10 +53,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           RaisedButton(
             child: Text('Login'),
             onPressed: () async{
-             bool isLogin = await controller.login();
-            if(isLogin == true){
-              //vai pra home
-            }
+            bool login = await controller.login();
+             if(login == true){
+               Modular.to.pushNamed('/home');
+
+             }
             }
           ),
         ],

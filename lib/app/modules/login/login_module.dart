@@ -1,11 +1,12 @@
 import 'package:bestar_hasura/app/modules/login/login_controller.dart';
+import 'package:bestar_hasura/app/shared/repositories/chat_repository_interface.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:bestar_hasura/app/modules/login/login_page.dart';
 
 class LoginModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => LoginController()),
+        Bind((i) => LoginController(i.get<IChatRepository>())),
       ];
 
   @override

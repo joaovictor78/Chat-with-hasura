@@ -21,25 +21,30 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           title: Text(widget.title),
         ),
         body: Observer(builder: (BuildContext context) {
+          print(controller.messages);
+          if (controller.messages.value == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.white,
+              ),
+            );
+          }
+          if (controller.messages.hasError) {
+            return Center(
+              child: Text('Ocorreu um erro na conexão'),
+            );
+          }
+
           return Column(
             children: <Widget>[
               Expanded(
                 child: ListView.builder(
-                  itemCount: controller.messages.data.length,
+                  reverse: true,
+                  itemCount: controller.messages.value.length,
                   itemBuilder: (BuildContext context, int index) {
-                    if(controller.messages.hasError){
-                      return Center(
-                        child: Text('Ocorreu um erro na conexão'),
-                      );
-                    }
-                    if(controller.messages.data == null){
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
                     return ListTile(
-                      title: controller.messages.data[index].user.nme,
-                      subtitle: Text(controller.messages.data[index].content),
+                      title: Text(controller.messages.value[index].user.name),
+                      subtitle: Text(controller.messages.value[index].content),
                     );
                   },
                 ),

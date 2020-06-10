@@ -12,21 +12,24 @@ abstract class _HomeControllerBase with Store {
   ChatRepository _chatRepository;
   String message;
   @observable
-  AppController  _appController;
+   AppController _appController;
   _HomeControllerBase(this._chatRepository, this._appController){
-   
+    getMensagens();
   }
-  @observable
+
   ObservableStream<List<MessageModel>> messages;
-  @action
-  getMensagens(){
-  messages = _chatRepository.getMenssage().asObservable();
-  return messages;
+
+  getMensagens() {
+    messages = _chatRepository.getMenssage().asObservable(initialValue: []);
+    return messages;
   }
-   void getMessage(String value) {
-     message = value;
+
+  void getMessage(String value) {
+    message = value;
   }
-  void sendMessage(){
-    _chatRepository.sendMenssage(message, '${_appController.userController.id}');
+
+  void sendMessage() {
+    _chatRepository.sendMenssage(
+        message, '${_appController.userController.id}');
   }
 }

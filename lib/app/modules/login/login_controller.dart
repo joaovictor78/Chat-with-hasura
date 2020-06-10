@@ -1,17 +1,18 @@
-import 'package:bestar_hasura/app/shared/repositories/chat_repository.dart';
+import 'package:bestar_hasura/app/shared/repositories/chat_repository_interface.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-
 import '../../app_controller.dart';
-
 part 'login_controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-final chatRepository = Modular.get<ChatRepository>();
+final IChatRepository chatRepository;
 final controllerApp = Modular.get<AppController>();
 var user;
+String name;
+String email;
+  _LoginControllerBase(this.chatRepository);
 Future<bool> login() async{
   try {
    user = await chatRepository.getUser(name, email);
@@ -22,9 +23,6 @@ Future<bool> login() async{
     return false;
   }
 }
-
-String name;
-String email;
 
 getName(String value) {
   name = value;
